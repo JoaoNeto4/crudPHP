@@ -1,0 +1,52 @@
+create database JoaoNetoFinal;
+
+use JoaoNetoFinal;
+
+create table usuario(
+codigo int primary key auto_increment,
+email varchar(50),
+senha varchar(50)
+);
+
+create table categoriaproduto(
+codigo int primary key auto_increment,
+descricao varchar(50)
+);
+
+create table produto(
+codigo int primary key auto_increment,
+categoria int,
+descricaoprod varchar(60),
+precounit double
+);
+
+create table funcionario(
+codigo int primary key auto_increment,
+nome varchar(60)
+);
+
+create table mesa(
+codigo int primary key auto_increment,
+descricao varchar(60),
+situacao boolean
+);
+
+create table comanda(
+codigo int primary key auto_increment,
+cod_garcom int,
+cod_mesa int,
+valortotal double,
+CONSTRAINT fk_garcon_comanda FOREIGN KEY(cod_garcom) REFERENCES funcionario (codigo),
+CONSTRAINT fk_mesa_comanda FOREIGN KEY(cod_mesa) REFERENCES mesa (codigo)
+);
+
+create table pedidocomanda(
+codigo int primary key auto_increment,
+cod_comanda int,
+cod_produto int,
+quantidade int,
+preco_unitario double,
+valortotal double,
+CONSTRAINT fk_comanda_codcomanda FOREIGN KEY(cod_comanda) REFERENCES comanda (codigo),
+CONSTRAINT fk_produtos_codprodutos FOREIGN KEY(cod_produto) REFERENCES produto (codigo)
+);
